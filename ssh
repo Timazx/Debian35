@@ -1,0 +1,6 @@
+apt install openssh-server ssh
+systemctl start sshd
+systemctl enable ssh
+apt install openshh-server ssh
+systemctl start sshd
+systemctl enable sshd
