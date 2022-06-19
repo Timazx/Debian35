@@ -1,0 +1,38 @@
+apt cdrom add 
+apt install bind9 -y
+mkdir /opt/dns
+cp /etc/bind/db.local /opt/dns/demo.db
+chown -R bind:bind /opt/dns/
+nano /etc/apparmor.d/usr.sbin.named
+
+<add under cache/bind/ rw>
+/opt/dns/** rw, 
+
+systemctl restart apparmor.service
+systemctl status apparmor.service
+
+nano /etc/bind/named.conf.options
+     forwarders - 4.4.4.100
+     dnssec-validation no;
+     allow-query [ any; ];
+     listen-on-v6 [ any; ];
+
+nano /etc/bind/named.conf.default-zones
+             1 zone localhost (into) demo.wsr
+               type master;
+               allow-transfer [ any; ];
+               file "/opt/dns/demo.db";
+
+nano /opt/dns/demo.db
+               demo.wsr root.demo.wsr.
+@      IN         NS     isp.demo.wsr.
+isp    IN         A      3.3.3.1
+www    IN         A      4.4.4.100
+www    IN         A      5.5.5.100
+internet CNAME isp.demo.wsr.
+int    IN         NS     rtr-l.demo.wsr.
+rtr-l  IN         A      4.4.4.100
+
+
+systemctl restart bind9
+systemctl start bind9
