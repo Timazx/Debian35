@@ -1,6 +1,10 @@
-apt install openssh-server ssh
-systemctl start sshd
+apt-cdrom add
+apt install -y openssh-server ssh
+systemctl start sshd 
 systemctl enable ssh
-apt install openshh-server ssh
-systemctl start sshd
-systemctl enable sshd
+nano /etc/ssh/sshd_config
+------port 2222
+------PubkeyAuthentification Дописать yes,
+password authentification yes,
+restart sshd
+ssh root@localhost -p 2222
