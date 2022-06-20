@@ -1,0 +1,13 @@
+apt install cifs-utils
+nano /root/.smbclient
+
+username=Administrator
+password=P@ssw0rd
+
+nano /etc/fstab
+
+//srv.int.demo.wsr/smb /opt/share cifs user,rw,_netdev,credentials=/root/.smbclient 0 0
+
+mkdir /opt/share
+mount -a
+mkdir /opt/share/test
