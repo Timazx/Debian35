@@ -1,0 +1,5 @@
+apt install resolvconf
+nano /etc/resolv.conf
+
+nameserver (serveraddress)
+dns-search (dnsname)
