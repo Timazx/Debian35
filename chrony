@@ -8,6 +8,16 @@ systemctl restart chronyd
 
 
 
+webapp
+apt-cdrom add
+apt install -y chrony
+nano /etc/chrony/chrony.conf 
+--------pool ntp.int.demo.wsr iburst
+--------allow 192.168.100.0/24
+systemctl restart chrony
+
+
+
 powershell admin
 New-netFirewall -displayname "ntp" -direction inbound -localport123 -protocol udp -action allow
 start service w32time
