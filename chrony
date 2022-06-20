@@ -1,0 +1,17 @@
+apt install -y chrony
+nano /etc/chrony/chory.conf
+--------- use debian rendor zone
+local stratum 4 
+allow 4.4.4.0/24
+allow 3.3.3.0/24
+systemctl restart chronyd
+
+
+
+powershell admin
+New-netFirewall -displayname "ntp" -direction inbound -localport123 -protocol udp -action allow
+start service w32time
+w32tm /config/manualpeerlist:"4.4.4.1" /syncfromgflags:manual/reliable:yes /update
+restart-service w32time
+set-service -Name w32time -StartupType Automatic
+go to  services , chand -windows Time- from manual to automatic
